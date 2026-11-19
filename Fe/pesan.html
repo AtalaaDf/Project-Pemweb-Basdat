@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pemesanan &amp; Checkout | Digimart</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FFFFFF',
+                        surface: '#F8FAFC',
+                        border: '#E2E8F0',
+                        text: '#0F172A',
+                        muted: '#64748B',
+                        accent: '#A6B4FC',
+                        'accent-text': '#0F172A',
+                        'accent-hover': '#818CF8',
+                        'accent-soft': '#EEF2FF',
+                        'accent-deep': '#4F46E5',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/format.js"></script>
+    <script src="assets/js/validate.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/ui.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-900 bg-white antialiased">
+
+<div id="page-progress-bar"></div>
+
+<!-- Header Publik -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+            <span class="w-9 h-9 rounded-xl bg-[#A6B4FC] text-[#0F172A] flex items-center justify-center font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">D</span>
+            <div class="flex flex-col">
+                <span class="font-bold text-lg tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">Digimart</span>
+                <span class="text-[10px] text-slate-500 leading-none hidden sm:block">Digital & Tech Store</span>
+            </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Beranda</a>
+            <a href="katalog.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Katalog</a>
+            <a href="pesan.html" class="text-sm font-semibold text-indigo-600">Pemesanan</a>
+            <a href="kontak.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Kontak</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <a href="admin/dashboard.html" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                <span>Seller Centre</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </a>
+            <button type="button" id="btn-nav-mobile" aria-expanded="false" aria-controls="panel-nav-mobile" class="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" aria-label="Buka menu">
+                <svg id="ikon-nav-hamburger" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                <svg id="ikon-nav-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
+    <div class="space-y-1">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Checkout Transaksi</span>
+        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Formulir Pemesanan Barang</h1>
+        <p class="text-sm text-slate-500">Lengkapi data pembeli dan konfirmasi rincian pesanan Anda untuk dicatat ke sistem.</p>
+    </div>
+
+    <!-- Tampilan Sukses Checkout -->
+    <div id="sukses-order-box" class="hidden p-8 rounded-3xl border border-emerald-200 bg-emerald-50/50 text-center space-y-4 max-w-2xl mx-auto">
+        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl font-bold">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h2 class="text-2xl font-extrabold text-slate-900">Pesanan Berhasil Dibuat!</h2>
+        <p class="text-sm text-slate-600 max-w-md mx-auto">
+            Transaksi Anda telah berhasil dicatat ke database dengan nomor referensi <span id="nomor-referensi-sukses" class="font-bold text-indigo-600"></span>.
+        </p>
+        <div class="pt-4 flex flex-wrap justify-center gap-3">
+            <a href="katalog.html" class="px-5 py-2.5 rounded-xl bg-[#A6B4FC] text-[#0F172A] font-semibold text-xs hover:bg-[#818CF8] transition">Belanja Produk Lain</a>
+            <a href="admin/pesanan.html" class="px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">Lihat di Menu Admin Pesanan</a>
+        </div>
+    </div>
+
+    <!-- Layout 2 Kolom: Form di Kiri, Ringkasan di Kanan (PW-4, PW-6) -->
+    <div id="checkout-container" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Kolom Kiri: Formulir Data Pelanggan -->
+        <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+            <div class="border-b border-slate-100 pb-4">
+                <h3 class="text-base font-bold text-slate-900">1. Data Pembeli</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Informasi pengiriman dan kontak pemesan</p>
+            </div>
+
+            <form id="form-pesanan" class="space-y-4" novalidate>
+                <div>
+                    <label for="nama_pelanggan" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
+                    <input type="text" id="nama_pelanggan" name="nama_pelanggan" placeholder="Contoh: Muhammad Rafli" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white" required>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="email" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Email (Opsional)</label>
+                        <input type="email" id="email" name="email" placeholder="nama@email.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white">
+                    </div>
+                    <div>
+                        <label for="no_hp" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nomor HP / WhatsApp *</label>
+                        <input type="text" id="no_hp" name="no_hp" placeholder="08123456789" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="alamat" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Alamat Pengiriman *</label>
+                    <textarea id="alamat" name="alamat" rows="3" placeholder="Tuliskan nama jalan, nomor rumah, kecamatan, dan kota..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white" required></textarea>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4">
+                    <label for="metode_bayar" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Pilihan Metode Pembayaran *</label>
+                    <select id="metode_bayar" name="metode_bayar" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-white text-slate-800">
+                        <option value="Transfer Bank BCA">Transfer Bank BCA</option>
+                        <option value="Transfer Bank Mandiri">Transfer Bank Mandiri</option>
+                        <option value="QRIS Instant">QRIS (Gopay / OVO / ShopeePay / DANA)</option>
+                        <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+                    </select>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="btn-submit-pesanan" class="w-full py-3.5 rounded-xl bg-[#A6B4FC] text-[#0F172A] font-bold text-sm hover:bg-[#818CF8] hover-lift transition shadow-sm text-center">
+                        Konfirmasi &amp; Buat Pesanan
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Kolom Kanan: Ringkasan Belanja (PW-4, PW-8) -->
+        <div class="lg:col-span-5 bg-[#F8FAFC] rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-bold text-slate-900">2. Rincian Pesanan</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Daftar item produk yang akan dibeli</p>
+                </div>
+                <button type="button" id="btn-kosongkan-keranjang" class="text-xs text-rose-500 hover:underline">Kosongkan</button>
+            </div>
+
+            <!-- List Item Pesanan Dinamis -->
+            <div id="list-item-pesanan" class="space-y-3 max-h-80 overflow-y-auto pr-1">
+                <!-- Dimuat via JS -->
+            </div>
+
+            <!-- Perhitungan Total -->
+            <div class="border-t border-slate-200 pt-4 space-y-2 text-sm">
+                <div class="flex justify-between text-slate-500 text-xs">
+                    <span>Subtotal Produk</span>
+                    <span id="subtotal-harga" class="font-semibold text-slate-800">Rp 0</span>
+                </div>
+                <div class="flex justify-between text-slate-500 text-xs">
+                    <span>Biaya Penanganan / Layanan</span>
+                    <span class="font-semibold text-emerald-600">Gratis (Rp 0)</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-900 pt-2 border-t border-slate-200">
+                    <span class="font-bold text-sm">Total Tagihan:</span>
+                    <span id="total-tagihan" class="text-2xl font-extrabold text-indigo-600">Rp 0</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="bg-slate-50 border-t border-slate-200 mt-auto py-8 text-center text-xs text-slate-500">
+    &copy; 2026 Digimart. Sistem Informasi Penjualan Online.
+</footer>
+
+<!-- Skrip Interaktif Formulir Pemesanan (PW-6, PW-7, PW-8, PW-9) -->
+<script>
+let itemsCheckout = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    const produkIdParam = params.get('produk_id');
+    const jumlahParam = parseInt(params.get('jumlah')) || 1;
+
+    // Jika ada parameter produk_id di URL, gunakan langsung produk tersebut
+    if (produkIdParam) {
+        try {
+            const res = await API.getProdukDetail(produkIdParam);
+            if (res && res.sukses && res.data) {
+                itemsCheckout = [{
+                    id_produk: res.data.id_produk,
+                    nama_produk: res.data.nama_produk,
+                    harga: Number(res.data.harga),
+                    jumlah: jumlahParam,
+                    nama_kategori: res.data.nama_kategori || 'Elektronik'
+                }];
+            }
+        } catch (e) {
+            console.error('Error load produk checkout:', e);
+        }
+    } else {
+        // Ambil dari keranjang LocalStorage
+        itemsCheckout = Cart.ambilItem();
+    }
+
+    renderRincianCheckout();
+
+    // Validasi real-time saat mengetik
+    const inputNama = document.getElementById('nama_pelanggan');
+    const inputEmail = document.getElementById('email');
+    const inputNoHp = document.getElementById('no_hp');
+    const inputAlamat = document.getElementById('alamat');
+
+    inputNama.addEventListener('input', () => validasiInput(inputNama, ['wajib']));
+    inputEmail.addEventListener('input', () => validasiInput(inputEmail, ['email']));
+    inputNoHp.addEventListener('input', () => validasiInput(inputNoHp, ['wajib', 'noHp']));
+    inputAlamat.addEventListener('input', () => validasiInput(inputAlamat, ['wajib']));
+
+    // Kosongkan Keranjang
+    document.getElementById('btn-kosongkan-keranjang').addEventListener('click', () => {
+        bukaDialogKonfirmasi({
+            judul: 'Kosongkan Pesanan?',
+            pesan: 'Apakah Anda yakin ingin mengosongkan item dari daftar pemesanan?',
+            tipe: 'bahaya',
+            onKonfirmasi: () => {
+                Cart.kosongkan();
+                itemsCheckout = [];
+                renderRincianCheckout();
+            }
+        });
+    });
+
+    // Form Submit Handler dengan Dialog Modal (PW-7, PW-8, PW-9)
+    const form = document.getElementById('form-pesanan');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (itemsCheckout.length === 0) {
+            tampilkanToast('Pilih minimal 1 produk untuk membuat pesanan.', 'galat');
+            return;
+        }
+
+        const v1 = validasiInput(inputNama, ['wajib']);
+        const v2 = validasiInput(inputEmail, ['email']);
+        const v3 = validasiInput(inputNoHp, ['wajib', 'noHp']);
+        const v4 = validasiInput(inputAlamat, ['wajib']);
+
+        if (!v1 || !v2 || !v3 || !v4) {
+            tampilkanToast('Mohon lengkapi formulir dengan data yang valid.', 'galat');
+            return;
+        }
+
+        const totalNominal = itemsCheckout.reduce((acc, i) => acc + (i.harga * i.jumlah), 0);
+
+        bukaDialogKonfirmasi({
+            judul: 'Konfirmasi Pembuatan Pesanan',
+            pesan: `Lanjutkan pemesanan untuk ${itemsCheckout.length} jenis produk senilai ${formatRupiah(totalNominal)}?`,
+            tipe: 'primer',
+            teksKonfirmasi: 'Ya, Kirim Pesanan',
+            onKonfirmasi: async () => {
+                await prosesKirimPesanan();
+            }
+        });
+    });
+});
+
+function renderRincianCheckout() {
+    const listEl = document.getElementById('list-item-pesanan');
+    const subtotalEl = document.getElementById('subtotal-harga');
+    const totalEl = document.getElementById('total-tagihan');
+
+    if (itemsCheckout.length === 0) {
+        listEl.innerHTML = `
+            <div class="py-8 text-center text-slate-400 text-xs">
+                Belum ada produk yang dipilih. Silakan pilih produk dari <a href="katalog.html" class="text-indigo-600 underline font-semibold">Katalog</a>.
+            </div>
+        `;
+        subtotalEl.textContent = 'Rp 0';
+        totalEl.textContent = 'Rp 0';
+        return;
+    }
+
+    let subtotal = 0;
+    listEl.innerHTML = itemsCheckout.map(i => {
+        const itemTotal = i.harga * i.jumlah;
+        subtotal += itemTotal;
+        return `
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs">
+                <div>
+                    <h5 class="font-bold text-slate-800 text-sm">${escapeHtml(i.nama_produk)}</h5>
+                    <span class="text-slate-400">${i.jumlah} x ${formatRupiah(i.harga)}</span>
+                </div>
+                <div class="text-right">
+                    <span class="font-extrabold text-indigo-600">${formatRupiah(itemTotal)}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    subtotalEl.textContent = formatRupiah(subtotal);
+    totalEl.textContent = formatRupiah(subtotal);
+}
+
+async function prosesKirimPesanan() {
+    const btn = document.getElementById('btn-submit-pesanan');
+    btn.disabled = true;
+    btn.textContent = 'Memproses Pesanan...';
+
+    const nama = document.getElementById('nama_pelanggan').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const no_hp = document.getElementById('no_hp').value.trim();
+    const alamat = document.getElementById('alamat').value.trim();
+    const metode_bayar = document.getElementById('metode_bayar').value;
+
+    let nomorSukses = [];
+
+    try {
+        // Karena ERD 1 pesanan = 1 produk, jika ada multi-item keranjang, buat pesanan per baris
+        for (const item of itemsCheckout) {
+            const payload = {
+                nama_pelanggan: nama,
+                email: email,
+                no_hp: no_hp,
+                alamat: alamat,
+                id_produk: item.id_produk,
+                total_harga: item.harga * item.jumlah,
+                status_pesanan: 'Menunggu'
+            };
+
+            const res = await API.buatPesanan(payload);
+            if (res && res.sukses) {
+                nomorSukses.push('#' + (res.id_pesanan || 'OK'));
+            }
+        }
+
+        // Kosongkan keranjang setelah order sukses
+        Cart.kosongkan();
+
+        tampilkanToast('Pesanan berhasil dibuat!', 'sukses');
+        document.getElementById('checkout-container').classList.add('hidden');
+        const boxSukses = document.getElementById('sukses-order-box');
+        boxSukses.classList.remove('hidden');
+        document.getElementById('nomor-referensi-sukses').textContent = nomorSukses.join(', ');
+
+    } catch (e) {
+        console.error('Error buat pesanan:', e);
+        tampilkanToast('Gagal memproses pesanan ke server.', 'galat');
+        btn.disabled = false;
+        btn.textContent = 'Konfirmasi & Buat Pesanan';
+    }
+}
+</script>
+
+</body>
+</html>
+

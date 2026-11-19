@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk | Digimart</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FFFFFF',
+                        surface: '#F8FAFC',
+                        border: '#E2E8F0',
+                        text: '#0F172A',
+                        muted: '#64748B',
+                        accent: '#A6B4FC',
+                        'accent-text': '#0F172A',
+                        'accent-hover': '#818CF8',
+                        'accent-soft': '#EEF2FF',
+                        'accent-deep': '#4F46E5',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/format.js"></script>
+    <script src="assets/js/validate.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/ui.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-900 bg-white antialiased">
+
+<div id="page-progress-bar"></div>
+
+<!-- Header Publik -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+            <span class="w-9 h-9 rounded-xl bg-[#A6B4FC] text-[#0F172A] flex items-center justify-center font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">D</span>
+            <div class="flex flex-col">
+                <span class="font-bold text-lg tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">Digimart</span>
+                <span class="text-[10px] text-slate-500 leading-none hidden sm:block">Digital & Tech Store</span>
+            </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Beranda</a>
+            <a href="katalog.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Katalog</a>
+            <a href="pesan.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pemesanan</a>
+            <a href="kontak.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Kontak</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <a href="pesan.html" class="relative p-2 text-slate-600 hover:text-indigo-600 hover:bg-slate-100 rounded-lg transition" title="Keranjang Belanja">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span id="badge-keranjang-count" class="hidden absolute top-1 right-1 w-4 h-4 bg-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            </a>
+            <a href="admin/dashboard.html" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                <span>Seller Centre</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-12">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-indigo-600 transition">Beranda</a>
+        <span>/</span>
+        <a href="katalog.html" class="hover:text-indigo-600 transition">Katalog</a>
+        <span>/</span>
+        <span id="breadcrumb-produk" class="text-slate-900 font-semibold truncate max-w-xs">Memuat Produk...</span>
+    </nav>
+
+    <!-- State Galat jika ID tidak ada/ditemukan -->
+    <div id="state-galat-detail" class="hidden p-8 rounded-2xl border border-rose-200 bg-rose-50 text-center space-y-3">
+        <h3 class="font-bold text-rose-800 text-lg">Produk Tidak Ditemukan</h3>
+        <p class="text-xs text-rose-600">ID produk tidak valid atau produk telah dihapus dari sistem database.</p>
+        <a href="katalog.html" class="inline-block mt-2 px-5 py-2 rounded-lg bg-rose-600 text-white font-semibold text-xs hover:bg-rose-700 transition">Kembali ke Katalog</a>
+    </div>
+
+    <!-- Tampilan 2 Kolom Detail Produk (PW-3) -->
+    <div id="konten-detail" class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+        <!-- Kolom Kiri: Visual Produk -->
+        <div class="md:col-span-5 bg-[#F8FAFC] rounded-3xl border border-slate-200 p-8 flex flex-col items-center justify-center min-h-[380px] shadow-sm relative overflow-hidden">
+            <span id="label-kategori-badge" class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-700 shadow-sm">
+                Kategori
+            </span>
+            <div class="w-32 h-32 rounded-2xl bg-white/80 border border-slate-200 shadow-sm flex items-center justify-center text-indigo-500 mb-4">
+                <svg class="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Digimart Original Tech</span>
+        </div>
+
+        <!-- Kolom Kanan: Rincian Produk & Aksi Beli -->
+        <div class="md:col-span-7 space-y-6">
+            <div class="space-y-2 border-b border-slate-100 pb-5">
+                <div class="flex items-center gap-2">
+                    <span id="badge-stok-status" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        Stok Tersedia
+                    </span>
+                    <span class="text-xs text-slate-400">&bull; Kode ID #<span id="text-id-produk"></span></span>
+                </div>
+                <h1 id="text-nama-produk" class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                    Memuat...
+                </h1>
+                <div id="text-harga-produk" class="text-3xl font-extrabold text-indigo-600 pt-1">
+                    Rp 0
+                </div>
+            </div>
+
+            <!-- Deskripsi -->
+            <div class="space-y-2">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Deskripsi &amp; Spesifikasi</h3>
+                <p id="text-deskripsi-produk" class="text-sm text-slate-600 leading-relaxed">
+                    Produk perangkat dan perlengkapan komputer berkualitas tinggi dengan jaminan fungsional optimal untuk menunjang produktivitas kerja dan hiburan Anda.
+                </p>
+            </div>
+
+            <!-- Rincian Stok -->
+            <div class="p-4 rounded-xl border border-slate-200 bg-[#F8FAFC] flex items-center justify-between text-xs">
+                <span class="text-slate-500">Ketersediaan Stok Gudang</span>
+                <span class="font-bold text-slate-900"><span id="text-stok-unit">0</span> Unit</span>
+            </div>
+
+            <!-- Pengatur Jumlah & Aksi Transaksi -->
+            <div class="space-y-4 pt-2">
+                <div class="flex items-center gap-4">
+                    <span class="text-xs font-semibold text-slate-700">Jumlah Beli:</span>
+                    <div class="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-white">
+                        <button type="button" id="btn-kurang-qty" class="px-3 py-1.5 text-slate-600 hover:bg-slate-100 transition font-bold text-sm">-</button>
+                        <input type="number" id="input-qty" value="1" min="1" class="w-14 text-center border-0 text-sm font-bold text-slate-800 focus:outline-none focus:ring-0">
+                        <button type="button" id="btn-tambah-qty" class="px-3 py-1.5 text-slate-600 hover:bg-slate-100 transition font-bold text-sm">+</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button type="button" id="btn-beli-sekarang" class="flex-1 py-3.5 rounded-xl bg-[#A6B4FC] text-[#0F172A] font-bold text-sm hover:bg-[#818CF8] hover-lift transition text-center shadow-sm">
+                        Pesan Sekarang &rarr;
+                    </button>
+                    <button type="button" id="btn-tambah-keranjang" class="flex-1 py-3.5 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition text-center">
+                        + Tambah ke Keranjang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seksi Produk Terkait (PW-3) -->
+    <section class="border-t border-slate-200 pt-10 space-y-6">
+        <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Rekomendasi Lainnya</span>
+            <h2 class="text-xl font-bold text-slate-900 mt-0.5">Produk Terkait</h2>
+        </div>
+        <div id="grid-produk-terkait" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Dimuat via JS -->
+        </div>
+    </section>
+</main>
+
+<footer class="bg-slate-50 border-t border-slate-200 mt-auto py-8 text-center text-xs text-slate-500">
+    &copy; 2026 Digimart. Sistem Informasi Penjualan Online.
+</footer>
+
+<!-- Skrip Mengambil Detail Produk (PW-7, PW-8, PW-9) -->
+<script>
+let detailProduk = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    if (!id) {
+        tampilkanStateGalat();
+        return;
+    }
+
+    try {
+        const res = await API.getProdukDetail(id);
+        if (res && res.sukses && res.data) {
+            detailProduk = res.data;
+            renderDetailProduk(detailProduk);
+            muatProdukTerkait(detailProduk.nama_kategori, detailProduk.id_produk);
+        } else {
+            tampilkanStateGalat();
+        }
+    } catch (e) {
+        console.error('Error load detail:', e);
+        tampilkanStateGalat();
+    }
+
+    // Handler Quantity
+    const inputQty = document.getElementById('input-qty');
+    document.getElementById('btn-kurang-qty').addEventListener('click', () => {
+        let val = parseInt(inputQty.value) || 1;
+        if (val > 1) inputQty.value = val - 1;
+    });
+
+    document.getElementById('btn-tambah-qty').addEventListener('click', () => {
+        let val = parseInt(inputQty.value) || 1;
+        const maxStok = detailProduk ? Number(detailProduk.stok) : 99;
+        if (val < maxStok) inputQty.value = val + 1;
+    });
+
+    // Handler Beli Sekarang (Direct Order Form)
+    document.getElementById('btn-beli-sekarang').addEventListener('click', () => {
+        if (!detailProduk) return;
+        const qty = parseInt(inputQty.value) || 1;
+        window.location.href = `pesan.html?produk_id=${detailProduk.id_produk}&jumlah=${qty}`;
+    });
+
+    // Handler Tambah ke Keranjang
+    document.getElementById('btn-tambah-keranjang').addEventListener('click', () => {
+        if (!detailProduk) return;
+        const qty = parseInt(inputQty.value) || 1;
+        Cart.tambahProduk({
+            id_produk: detailProduk.id_produk,
+            nama_produk: detailProduk.nama_produk,
+            harga: detailProduk.harga,
+            nama_kategori: detailProduk.nama_kategori || 'Elektronik'
+        }, qty);
+    });
+});
+
+function renderDetailProduk(p) {
+    document.title = `${p.nama_produk} | Digimart`;
+    document.getElementById('breadcrumb-produk').textContent = p.nama_produk;
+    document.getElementById('text-id-produk').textContent = p.id_produk;
+    document.getElementById('text-nama-produk').textContent = p.nama_produk;
+    document.getElementById('text-harga-produk').textContent = formatRupiah(p.harga);
+    document.getElementById('text-stok-unit').textContent = p.stok;
+    document.getElementById('label-kategori-badge').textContent = p.nama_kategori || 'Elektronik';
+
+    if (p.deskripsi) {
+        document.getElementById('text-deskripsi-produk').textContent = p.deskripsi;
+    }
+
+    const badgeStok = document.getElementById('badge-stok-status');
+    if (Number(p.stok) <= 0) {
+        badgeStok.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200';
+        badgeStok.textContent = 'Stok Habis';
+        document.getElementById('btn-beli-sekarang').disabled = true;
+        document.getElementById('btn-beli-sekarang').classList.add('opacity-50', 'cursor-not-allowed');
+    }
+}
+
+function tampilkanStateGalat() {
+    document.getElementById('konten-detail').classList.add('hidden');
+    document.getElementById('state-galat-detail').classList.remove('hidden');
+}
+
+async function muatProdukTerkait(kategori, idSekarang) {
+    try {
+        const res = await API.getProduk();
+        if (res && res.data) {
+            const terkait = res.data
+                .filter(p => Number(p.id_produk) !== Number(idSekarang))
+                .slice(0, 4);
+
+            const grid = document.getElementById('grid-produk-terkait');
+            if (terkait.length > 0) {
+                grid.innerHTML = terkait.map(p => `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-4 space-y-3 hover-lift transition">
+                        <div class="h-32 bg-[#F8FAFC] rounded-xl flex items-center justify-center text-indigo-400">
+                            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-800 line-clamp-1 hover:text-indigo-600 transition">
+                            <a href="detail-produk.html?id=${p.id_produk}">${escapeHtml(p.nama_produk)}</a>
+                        </h4>
+                        <div class="font-extrabold text-sm text-indigo-600">${formatRupiah(p.harga)}</div>
+                        <a href="detail-produk.html?id=${p.id_produk}" class="block w-full py-1.5 rounded-lg bg-slate-100 text-slate-700 font-semibold text-xs text-center hover:bg-slate-200 transition">
+                            Lihat Detail
+                        </a>
+                    </div>
+                `).join('');
+            }
+        }
+    } catch (e) {
+        console.error('Error load terkait:', e);
+    }
+}
+</script>
+
+</body>
+</html>
+

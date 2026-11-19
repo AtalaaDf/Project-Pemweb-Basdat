@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Master Produk | Digimart Admin</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FFFFFF',
+                        surface: '#F8FAFC',
+                        border: '#E2E8F0',
+                        text: '#0F172A',
+                        muted: '#64748B',
+                        accent: '#A6B4FC',
+                        'accent-text': '#0F172A',
+                        'accent-hover': '#818CF8',
+                        'accent-soft': '#EEF2FF',
+                        'accent-deep': '#4F46E5',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="../assets/css/custom.css" rel="stylesheet">
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/format.js"></script>
+    <script src="../assets/js/validate.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/ui.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-900 bg-white antialiased">
+
+<div id="page-progress-bar"></div>
+
+<!-- Topbar Admin -->
+<header class="sticky top-0 z-40 bg-white border-b border-slate-200 h-16 flex items-center px-4 sm:px-6 justify-between">
+    <div class="flex items-center gap-3">
+        <a href="dashboard.html" class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-[#A6B4FC] text-[#0F172A] flex items-center justify-center font-bold text-base">D</span>
+            <span class="font-bold text-base tracking-tight text-slate-900">Digimart Admin</span>
+        </a>
+        <span class="text-xs px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-medium">Seller Centre</span>
+    </div>
+    <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition">
+        <span>Lihat Toko</span>
+    </a>
+</header>
+
+<div class="flex-1 flex max-w-7xl w-full mx-auto">
+    <!-- Sidebar Admin -->
+    <aside class="w-64 border-r border-slate-200 bg-slate-50/50 p-4 shrink-0 hidden md:block">
+        <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-3 px-3">Menu Master</div>
+        <nav class="space-y-1">
+            <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="produk.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold bg-[#A6B4FC] text-[#0F172A]">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                <span>Data Produk</span>
+            </a>
+            <a href="kategori.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
+                <span>Data Kategori</span>
+            </a>
+            <a href="pelanggan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <span>Data Pelanggan</span>
+            </a>
+            <a href="pesanan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                <span>Data Pesanan</span>
+            </a>
+            <a href="pembayaran.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                <span>Data Pembayaran</span>
+            </a>
+            <div class="pt-3 pb-1 border-t border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3">Laporan</div>
+            <a href="laporan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                <span>Rekapitulasi Penjualan</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content CRUD Produk (BD-2, BD-3, BI-3) -->
+    <main class="flex-1 p-6 md:p-8 bg-white overflow-x-hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Kelola Data Produk</h1>
+                <p class="text-slate-500 text-sm mt-0.5">Kelola daftar item barang, harga jual, dan stok gudang Digimart.</p>
+            </div>
+            <button type="button" id="btn-tambah-modal" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#A6B4FC] text-[#0F172A] font-semibold text-sm hover:bg-[#818CF8] hover-lift transition">
+                <span>+</span> Tambah Produk Baru
+            </button>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="flex items-center justify-between gap-4">
+            <input type="text" id="cari-produk-table" placeholder="Cari produk atau kategori..." class="w-full max-w-sm px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50">
+            <span class="text-xs text-slate-400">Total: <span id="total-produk-count" class="font-bold text-slate-700">0</span> produk</span>
+        </div>
+
+        <!-- Tabel Produk -->
+        <div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-slate-50/75 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                            <th class="py-3.5 px-4">ID</th>
+                            <th class="py-3.5 px-4">Nama Produk</th>
+                            <th class="py-3.5 px-4">Kategori</th>
+                            <th class="py-3.5 px-4 text-right">Harga</th>
+                            <th class="py-3.5 px-4 text-center">Stok</th>
+                            <th class="py-3.5 px-4 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-produk" class="divide-y divide-slate-100">
+                        <tr><td colspan="6" class="py-8 text-center text-slate-400 text-xs">Memuat data produk...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal Form Tambah / Edit Produk (BD-3) -->
+<div id="modal-produk-form" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200">
+    <div class="bg-white rounded-3xl border border-slate-100 shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h3 id="modal-form-judul" class="text-lg font-bold text-slate-900">Tambah Produk Baru</h3>
+            <button type="button" id="btn-tutup-modal" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+        </div>
+
+        <form id="form-data-produk" class="space-y-4">
+            <input type="hidden" id="input-id-produk" value="">
+
+            <div>
+                <label for="input-nama-produk" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Produk *</label>
+                <input type="text" id="input-nama-produk" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" placeholder="Contoh: Mouse Wireless Ergonomis" required>
+            </div>
+
+            <div>
+                <label for="input-kategori-produk" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Kategori *</label>
+                <select id="input-kategori-produk" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-white text-slate-800" required>
+                    <option value="">-- Pilih Kategori --</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="input-harga-produk" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Harga (Rp) *</label>
+                    <input type="number" id="input-harga-produk" min="0" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" placeholder="85000" required>
+                </div>
+                <div>
+                    <label for="input-stok-produk" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Jumlah Stok *</label>
+                    <input type="number" id="input-stok-produk" min="0" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition" placeholder="20" required>
+                </div>
+            </div>
+
+            <div class="pt-3 flex justify-end gap-3">
+                <button type="button" id="btn-batal-modal" class="px-4 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">Batal</button>
+                <button type="submit" id="btn-simpan-produk" class="px-5 py-2 rounded-lg bg-[#A6B4FC] text-[#0F172A] text-xs font-bold hover:bg-[#818CF8] hover-lift transition">Simpan Data</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Skrip CRUD Produk (BI-3, BD-2, BD-3) -->
+<script>
+let listProduk = [];
+let listKategori = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await muatKategoriOption();
+    await muatDaftarProduk();
+
+    // Event Pencarian Tabel
+    document.getElementById('cari-produk-table').addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase();
+        const filtered = listProduk.filter(p => 
+            p.nama_produk.toLowerCase().includes(q) ||
+            (p.nama_kategori || '').toLowerCase().includes(q)
+        );
+        renderTabelProduk(filtered);
+    });
+
+    // Buka Modal Tambah
+    document.getElementById('btn-tambah-modal').addEventListener('click', () => {
+        bukaModalForm('Tambah Produk Baru');
+    });
+
+    // Tutup Modal
+    document.getElementById('btn-tutup-modal').addEventListener('click', tutupModalForm);
+    document.getElementById('btn-batal-modal').addEventListener('click', tutupModalForm);
+
+    // Form Submit (Create / Update)
+    document.getElementById('form-data-produk').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('input-id-produk').value;
+        const nama = document.getElementById('input-nama-produk').value.trim();
+        const id_kategori = document.getElementById('input-kategori-produk').value;
+        const harga = parseFloat(document.getElementById('input-harga-produk').value);
+        const stok = parseInt(document.getElementById('input-stok-produk').value);
+
+        if (!nama) {
+            tampilkanToast('Nama produk wajib diisi.', 'galat');
+            return;
+        }
+
+        const payload = {
+            id_produk: id ? parseInt(id) : undefined,
+            nama_produk: nama,
+            id_kategori: id_kategori ? parseInt(id_kategori) : null,
+            harga: harga,
+            stok: stok
+        };
+
+        const res = await API.simpanProduk(payload);
+        if (res && res.sukses) {
+            tampilkanToast(res.pesan || 'Data produk berhasil disimpan.', 'sukses');
+            tutupModalForm();
+            await muatDaftarProduk();
+        } else {
+            tampilkanToast(res.pesan || 'Gagal menyimpan data.', 'galat');
+        }
+    });
+});
+
+async function muatKategoriOption() {
+    try {
+        const res = await API.getKategori();
+        if (res && res.data) {
+            listKategori = res.data;
+            const select = document.getElementById('input-kategori-produk');
+            select.innerHTML = '<option value="">-- Pilih Kategori --</option>' +
+                listKategori.map(k => `<option value="${k.id_kategori}">${escapeHtml(k.nama_kategori)}</option>`).join('');
+        }
+    } catch (e) {
+        console.error('Error load kategori option:', e);
+    }
+}
+
+async function muatDaftarProduk() {
+    try {
+        const res = await API.getProduk();
+        if (res && res.data) {
+            listProduk = res.data;
+            document.getElementById('total-produk-count').textContent = listProduk.length;
+            renderTabelProduk(listProduk);
+        }
+    } catch (e) {
+        console.error('Error load produk master:', e);
+    }
+}
+
+function renderTabelProduk(data) {
+    const tbody = document.getElementById('tbody-produk');
+    if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-slate-400 text-xs">Tidak ada data produk ditemukan.</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = data.map(p => `
+        <tr class="hover:bg-slate-50/60 transition-colors">
+            <td class="py-3.5 px-4 font-semibold text-slate-900">#${p.id_produk}</td>
+            <td class="py-3.5 px-4 font-medium text-slate-800">${escapeHtml(p.nama_produk)}</td>
+            <td class="py-3.5 px-4 text-slate-600">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                    ${escapeHtml(p.nama_kategori || 'Tanpa Kategori')}
+                </span>
+            </td>
+            <td class="py-3.5 px-4 text-right font-semibold text-indigo-600">${formatRupiah(p.harga)}</td>
+            <td class="py-3.5 px-4 text-center">
+                <span class="font-bold ${p.stok > 0 ? 'text-slate-800' : 'text-rose-600'}">${p.stok}</span>
+            </td>
+            <td class="py-3.5 px-4 text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <button type="button" onclick="editProduk(${p.id_produk})" class="p-1.5 rounded-lg text-slate-600 hover:text-indigo-600 hover:bg-slate-100 transition" title="Edit">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                    </button>
+                    <button type="button" onclick="konfirmasiHapusProduk(${p.id_produk}, '${escapeHtml(p.nama_produk)}')" class="p-1.5 rounded-lg text-rose-500 hover:text-rose-700 hover:bg-rose-50 transition" title="Hapus">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function bukaModalForm(judul = 'Tambah Produk Baru') {
+    document.getElementById('modal-form-judul').textContent = judul;
+    const modal = document.getElementById('modal-produk-form');
+    modal.classList.remove('hidden');
+    requestAnimationFrame(() => modal.classList.add('opacity-100'));
+}
+
+function tutupModalForm() {
+    const modal = document.getElementById('modal-produk-form');
+    modal.classList.remove('opacity-100');
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        document.getElementById('form-data-produk').reset();
+        document.getElementById('input-id-produk').value = '';
+    }, 200);
+}
+
+function editProduk(id) {
+    const p = listProduk.find(item => Number(item.id_produk) === Number(id));
+    if (!p) return;
+
+    document.getElementById('input-id-produk').value = p.id_produk;
+    document.getElementById('input-nama-produk').value = p.nama_produk;
+    document.getElementById('input-kategori-produk').value = p.id_kategori || '';
+    document.getElementById('input-harga-produk').value = p.harga;
+    document.getElementById('input-stok-produk').value = p.stok;
+
+    bukaModalForm('Edit Data Produk #' + p.id_produk);
+}
+
+function konfirmasiHapusProduk(id, nama) {
+    bukaDialogKonfirmasi({
+        judul: 'Hapus Produk?',
+        pesan: `Apakah Anda yakin ingin menghapus "${nama}"? Data yang sudah pernah dipesan tidak dapat dihapus.`,
+        tipe: 'bahaya',
+        teksKonfirmasi: 'Ya, Hapus',
+        onKonfirmasi: async () => {
+            const res = await API.hapusProduk(id);
+            if (res && res.sukses) {
+                tampilkanToast(res.pesan || 'Produk berhasil dihapus.', 'sukses');
+                await muatDaftarProduk();
+            } else {
+                tampilkanToast(res.pesan || 'Gagal menghapus produk.', 'galat');
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>
+

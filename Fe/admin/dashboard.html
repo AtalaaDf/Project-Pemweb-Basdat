@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Seller Centre | Digimart Admin</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FFFFFF',
+                        surface: '#F8FAFC',
+                        border: '#E2E8F0',
+                        text: '#0F172A',
+                        muted: '#64748B',
+                        accent: '#A6B4FC',
+                        'accent-text': '#0F172A',
+                        'accent-hover': '#818CF8',
+                        'accent-soft': '#EEF2FF',
+                        'accent-deep': '#4F46E5',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="../assets/css/custom.css" rel="stylesheet">
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/format.js"></script>
+    <script src="../assets/js/validate.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/ui.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-900 bg-white antialiased">
+
+<div id="page-progress-bar"></div>
+
+<!-- Topbar Admin -->
+<header class="sticky top-0 z-40 bg-white border-b border-slate-200 h-16 flex items-center px-4 sm:px-6 justify-between">
+    <div class="flex items-center gap-3">
+        <a href="dashboard.html" class="flex items-center gap-2">
+            <span class="w-8 h-8 rounded-lg bg-[#A6B4FC] text-[#0F172A] flex items-center justify-center font-bold text-base">D</span>
+            <span class="font-bold text-base tracking-tight text-slate-900">Digimart Admin</span>
+        </a>
+        <span class="text-xs px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-medium">Seller Centre</span>
+    </div>
+    <div class="flex items-center gap-3">
+        <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+            <span>Lihat Toko Publik</span>
+        </a>
+    </div>
+</header>
+
+<div class="flex-1 flex max-w-7xl w-full mx-auto">
+    <!-- Sidebar Admin (Static 256px di Desktop, Adaptive) -->
+    <aside class="w-64 border-r border-slate-200 bg-slate-50/50 p-4 shrink-0 hidden md:block">
+        <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-3 px-3">Menu Master</div>
+        <nav class="space-y-1">
+            <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold bg-[#A6B4FC] text-[#0F172A]">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                <span>Dashboard</span>
+            </a>
+            <a href="produk.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                <span>Data Produk</span>
+            </a>
+            <a href="kategori.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
+                <span>Data Kategori</span>
+            </a>
+            <a href="pelanggan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <span>Data Pelanggan</span>
+            </a>
+            <a href="pesanan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                <span>Data Pesanan</span>
+            </a>
+            <a href="pembayaran.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                <span>Data Pembayaran</span>
+            </a>
+            <div class="pt-3 pb-1 border-t border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3">Laporan</div>
+            <a href="laporan.html" class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition">
+                <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                <span>Rekapitulasi Penjualan</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Admin Content (BD-1, BI-2) -->
+    <main class="flex-1 p-6 md:p-8 bg-white overflow-x-hidden space-y-8">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200 pb-5">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Dashboard Seller Centre</h1>
+                <p class="text-slate-500 text-sm mt-0.5">Ringkasan transaksi dan data master Digimart dari backend.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="pesanan.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#A6B4FC] text-[#0F172A] font-semibold text-sm hover:bg-[#818CF8] hover-lift transition">
+                    <span>+</span> Kelola Pesanan
+                </a>
+            </div>
+        </div>
+
+        <!-- 4 Kartu Statistik -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between hover-lift">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Penjualan</span>
+                <div id="stat-total-penjualan" class="text-2xl font-bold text-slate-900 my-2">Rp 0</div>
+                <span class="text-xs text-emerald-600 font-medium">Transaksi tervalidasi</span>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between hover-lift">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Pesanan</span>
+                <div id="stat-total-pesanan" class="text-2xl font-bold text-slate-900 my-2">0</div>
+                <a href="pesanan.html" class="text-xs text-indigo-600 hover:underline font-medium">Buka data &rarr;</a>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between hover-lift">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Produk Terdaftar</span>
+                <div id="stat-total-produk" class="text-2xl font-bold text-slate-900 my-2">0</div>
+                <a href="produk.html" class="text-xs text-indigo-600 hover:underline font-medium">Kelola produk &rarr;</a>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col justify-between hover-lift">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Pelanggan Aktif</span>
+                <div id="stat-total-pelanggan" class="text-2xl font-bold text-slate-900 my-2">0</div>
+                <a href="pelanggan.html" class="text-xs text-indigo-600 hover:underline font-medium">Lihat pelanggan &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Tabel Pesanan Terbaru -->
+        <div class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+                <h2 class="text-base font-bold text-slate-900">Pesanan Terbaru</h2>
+                <a href="pesanan.html" class="text-xs text-indigo-600 hover:underline font-semibold">Semua Pesanan &rarr;</a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-slate-50/75 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                            <th class="py-3.5 px-4">ID</th>
+                            <th class="py-3.5 px-4">Pelanggan</th>
+                            <th class="py-3.5 px-4">Produk</th>
+                            <th class="py-3.5 px-4">Tanggal</th>
+                            <th class="py-3.5 px-4 text-right">Total Harga</th>
+                            <th class="py-3.5 px-4 text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-pesanan-terbaru" class="divide-y divide-slate-100">
+                        <tr><td colspan="6" class="py-8 text-center text-slate-400 text-xs">Memuat data pesanan...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Skrip Dashboard (BD-1, BI-2) -->
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const res = await API.getDashboard();
+        if (res && res.sukses) {
+            document.getElementById('stat-total-penjualan').textContent = formatRupiah(res.total_penjualan || 0);
+            document.getElementById('stat-total-pesanan').textContent = (res.counts ? res.counts.pesanan : 0);
+            document.getElementById('stat-total-produk').textContent = (res.counts ? res.counts.produk : 0);
+            document.getElementById('stat-total-pelanggan').textContent = (res.counts ? res.counts.pelanggan : 0);
+
+            const tbody = document.getElementById('tbody-pesanan-terbaru');
+            if (res.pesanan_terbaru && res.pesanan_terbaru.length > 0) {
+                tbody.innerHTML = res.pesanan_terbaru.map(r => `
+                    <tr class="hover:bg-slate-50/60 transition-colors">
+                        <td class="py-3.5 px-4 font-semibold text-slate-900">#${r.id_pesanan}</td>
+                        <td class="py-3.5 px-4 text-slate-700">${escapeHtml(r.nama_pelanggan)}</td>
+                        <td class="py-3.5 px-4 text-slate-700">${escapeHtml(r.nama_produk)}</td>
+                        <td class="py-3.5 px-4 text-slate-500 text-xs">${formatTanggal(r.tanggal_pesanan)}</td>
+                        <td class="py-3.5 px-4 text-right font-semibold text-slate-900">${formatRupiah(r.total_harga)}</td>
+                        <td class="py-3.5 px-4 text-center">${formatStatusBadge(r.status_pesanan)}</td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-slate-400 text-xs">Belum ada transaksi pesanan.</td></tr>';
+            }
+        }
+    } catch (e) {
+        console.error('Error load dashboard:', e);
+    }
+});
+</script>
+
+</body>
+</html>
+

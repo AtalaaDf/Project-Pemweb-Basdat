@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji Fondasi Komponen UI | Digimart</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FFFFFF',
+                        surface: '#F8FAFC',
+                        border: '#E2E8F0',
+                        text: '#0F172A',
+                        muted: '#64748B',
+                        accent: '#A6B4FC',
+                        'accent-text': '#0F172A',
+                        'accent-hover': '#818CF8',
+                        'accent-soft': '#EEF2FF',
+                        'accent-deep': '#4F46E5',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/format.js"></script>
+    <script src="assets/js/validate.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/ui.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-900 bg-white antialiased">
+
+<div id="page-progress-bar"></div>
+
+<!-- Header Publik -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-xl bg-[#A6B4FC] text-[#0F172A] flex items-center justify-center font-bold text-lg">D</span>
+            <span class="font-bold text-lg text-slate-900">Digimart</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-slate-900">Beranda</a>
+            <a href="katalog.html" class="text-sm font-medium text-slate-600 hover:text-slate-900">Katalog</a>
+            <a href="pesan.html" class="text-sm font-medium text-slate-600 hover:text-slate-900">Pemesanan</a>
+            <a href="kontak.html" class="text-sm font-medium text-slate-600 hover:text-slate-900">Kontak</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <a href="admin/dashboard.html" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Seller Centre</a>
+        </div>
+    </div>
+</header>
+
+<main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-12 w-full">
+    <div class="border-b border-slate-200 pb-6">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200 mb-2">Frontend Murni HTML + Tailwind</span>
+        <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Halaman Uji Fondasi Komponen (Fe/)</h1>
+        <p class="text-slate-500 text-sm mt-1">Uji kelayakan visual, token desain Soft Blue (#a6b4fc), dan interaksi JavaScript tanpa tag PHP.</p>
+    </div>
+
+    <!-- 1. Tombol -->
+    <section class="space-y-4">
+        <h2 class="text-lg font-bold text-slate-900">1. Varian Tombol & Kontras Aksen (#a6b4fc)</h2>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-wrap gap-4 items-center">
+            <button type="button" class="px-5 py-2.5 rounded-lg bg-[#A6B4FC] text-[#0F172A] font-semibold text-sm hover:bg-[#818CF8] hover-lift transition">
+                Primary Button (#a6b4fc)
+            </button>
+            <button type="button" class="px-5 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition">
+                Secondary Button
+            </button>
+            <button type="button" class="px-5 py-2.5 rounded-lg bg-rose-600 text-white font-semibold text-sm hover:bg-rose-700 transition">
+                Danger Button
+            </button>
+            <button type="button" class="px-5 py-2.5 rounded-lg text-slate-500 font-medium text-sm hover:text-slate-800 hover:bg-slate-100 transition">
+                Ghost Button
+            </button>
+            <button type="button" disabled class="px-5 py-2.5 rounded-lg bg-slate-100 text-slate-400 font-semibold text-sm cursor-not-allowed opacity-60">
+                Disabled Button
+            </button>
+        </div>
+    </section>
+
+    <!-- 2. Badges Status -->
+    <section class="space-y-4">
+        <h2 class="text-lg font-bold text-slate-900">2. Badge Status Pesanan (Desain Semantik)</h2>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-wrap gap-3 items-center">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Selesai / Lunas</span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">Menunggu / Diproses</span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200">Dikirim</span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">Dibatalkan</span>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#EEF2FF] text-indigo-700 border border-indigo-200">Kategori: Elektronik</span>
+        </div>
+    </section>
+
+    <!-- 3. Form Input & Validasi Interaktif -->
+    <section class="space-y-4">
+        <h2 class="text-lg font-bold text-slate-900">3. Validasi Form Real-time (DOM)</h2>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm max-w-xl space-y-4">
+            <div>
+                <label for="uji-nama" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap (Wajib)</label>
+                <input type="text" id="uji-nama" placeholder="Contoh: Muhammad Rafli" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition">
+            </div>
+            <div>
+                <label for="uji-email" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Alamat Email (Format Valid)</label>
+                <input type="email" id="uji-email" placeholder="Contoh: rafli@example.com" class="w-full px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition">
+            </div>
+            <button type="button" id="btn-uji-validasi" class="w-full py-2.5 rounded-lg bg-[#A6B4FC] text-[#0F172A] font-semibold text-sm hover:bg-[#818CF8] hover-lift transition">
+                Uji Validasi Form Klien
+            </button>
+        </div>
+    </section>
+
+    <!-- 4. Dialog Modal & Toast -->
+    <section class="space-y-4">
+        <h2 class="text-lg font-bold text-slate-900">4. Dialog Modal Konfirmasi & Toast</h2>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-wrap gap-4">
+            <button type="button" id="btn-uji-dialog-primer" class="px-4 py-2.5 rounded-lg bg-[#A6B4FC] text-[#0F172A] font-semibold text-sm hover:bg-[#818CF8] transition">
+                Buka Dialog Primer
+            </button>
+            <button type="button" id="btn-uji-dialog-hapus" class="px-4 py-2.5 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 font-semibold text-sm hover:bg-rose-100 transition">
+                Buka Dialog Hapus
+            </button>
+            <button type="button" id="btn-uji-toast-sukses" class="px-4 py-2.5 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold text-sm hover:bg-emerald-100 transition">
+                Trigger Toast Sukses
+            </button>
+        </div>
+    </section>
+
+    <!-- 5. Skeleton Loading State -->
+    <section class="space-y-4">
+        <h2 class="text-lg font-bold text-slate-900">5. Skeleton Loading State</h2>
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm max-w-sm space-y-3">
+            <div class="w-full h-40 rounded-xl skeleton-pulse"></div>
+            <div class="w-3/4 h-5 rounded skeleton-pulse"></div>
+            <div class="w-1/2 h-4 rounded skeleton-pulse"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-slate-50 border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-auto">
+    &copy; 2026 Digimart. Antarmuka Murni Frontend (Fe/).
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const inputNama = document.getElementById('uji-nama');
+    const inputEmail = document.getElementById('uji-email');
+    const btnValidasi = document.getElementById('btn-uji-validasi');
+
+    inputNama.addEventListener('input', () => validasiInput(inputNama, ['wajib']));
+    inputEmail.addEventListener('input', () => validasiInput(inputEmail, ['email']));
+
+    btnValidasi.addEventListener('click', () => {
+        const v1 = validasiInput(inputNama, ['wajib']);
+        const v2 = validasiInput(inputEmail, ['email']);
+        if (v1 && v2) {
+            tampilkanToast('Validasi formulir berhasil! Seluruh input valid.', 'sukses');
+        } else {
+            tampilkanToast('Harap periksa kembali input yang belum valid.', 'galat');
+        }
+    });
+
+    document.getElementById('btn-uji-dialog-primer').addEventListener('click', () => {
+        bukaDialogKonfirmasi({
+            judul: 'Konfirmasi Pesanan',
+            pesan: 'Apakah Anda ingin melanjutkan proses pemesanan ini?',
+            tipe: 'primer',
+            onKonfirmasi: () => tampilkanToast('Pesanan berhasil dikonfirmasi!', 'sukses')
+        });
+    });
+
+    document.getElementById('btn-uji-dialog-hapus').addEventListener('click', () => {
+        bukaDialogKonfirmasi({
+            judul: 'Hapus Data Master?',
+            pesan: 'Apakah Anda yakin ingin menghapus data ini?',
+            tipe: 'bahaya',
+            onKonfirmasi: () => tampilkanToast('Data berhasil dihapus.', 'info')
+        });
+    });
+
+    document.getElementById('btn-uji-toast-sukses').addEventListener('click', () => {
+        tampilkanToast('Operasi data berhasil dilakukan.', 'sukses');
+    });
+});
+</script>
+
+</body>
+</html>
+

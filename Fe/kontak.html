@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Kami | Digimart</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#FFFFFF',
+                        surface: '#F8FAFC',
+                        border: '#E2E8F0',
+                        text: '#0F172A',
+                        muted: '#64748B',
+                        accent: '#A6B4FC',
+                        'accent-text': '#0F172A',
+                        'accent-hover': '#818CF8',
+                        'accent-soft': '#EEF2FF',
+                        'accent-deep': '#4F46E5',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/format.js"></script>
+    <script src="assets/js/validate.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/ui.js"></script>
+</head>
+<body class="min-h-full flex flex-col font-sans text-slate-900 bg-white antialiased">
+
+<div id="page-progress-bar"></div>
+
+<!-- Header Publik -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+            <span class="w-9 h-9 rounded-xl bg-[#A6B4FC] text-[#0F172A] flex items-center justify-center font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">D</span>
+            <div class="flex flex-col">
+                <span class="font-bold text-lg tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">Digimart</span>
+                <span class="text-[10px] text-slate-500 leading-none hidden sm:block">Digital & Tech Store</span>
+            </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Beranda</a>
+            <a href="katalog.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Katalog</a>
+            <a href="pesan.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Pemesanan</a>
+            <a href="kontak.html" class="text-sm font-semibold text-indigo-600">Kontak</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <a href="pesan.html" class="relative p-2 text-slate-600 hover:text-indigo-600 hover:bg-slate-100 rounded-lg transition" title="Keranjang Belanja">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <span id="badge-keranjang-count" class="hidden absolute top-1 right-1 w-4 h-4 bg-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+            </a>
+            <a href="admin/dashboard.html" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                <span>Seller Centre</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+            </a>
+            <button type="button" id="btn-nav-mobile" aria-expanded="false" aria-controls="panel-nav-mobile" class="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" aria-label="Buka menu">
+                <svg id="ikon-nav-hamburger" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                <svg id="ikon-nav-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="panel-nav-mobile" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2 shadow-lg">
+        <a href="index.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Beranda</a>
+        <a href="katalog.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Katalog Produk</a>
+        <a href="pesan.html" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">Formulir Pemesanan</a>
+        <a href="kontak.html" class="block px-3 py-2 rounded-lg text-sm font-semibold bg-[#EEF2FF] text-indigo-700">Kontak Toko</a>
+        <div class="pt-2 border-t border-slate-100">
+            <a href="admin/dashboard.html" class="block px-3 py-2 rounded-lg text-sm font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 text-center">Seller Centre</a>
+        </div>
+    </div>
+</header>
+
+<main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-12">
+    <div class="space-y-1">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Layanan Pelanggan</span>
+        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Hubungi Tim Digimart</h1>
+        <p class="text-sm text-slate-500">Ada pertanyaan seputar produk atau pesanan Anda? Kirimkan pesan melalui formulir di bawah ini.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <!-- Informasi Kontak -->
+        <div class="lg:col-span-5 space-y-6">
+            <div class="p-6 rounded-3xl border border-slate-200 bg-[#F8FAFC] space-y-4">
+                <h3 class="font-bold text-slate-900 text-base">Informasi Toko</h3>
+                <div class="space-y-3 text-sm text-slate-600">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <span>Gedung Teknologi Digital, Jl. Pemuda No. 101, Indonesia</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-indigo-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        <span>support@digimart.local</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-indigo-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span>Senin - Sabtu (08.00 - 17.00 WIB)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-3xl border border-indigo-100 bg-[#EEF2FF]/60 text-indigo-900 text-xs space-y-2">
+                <span class="font-bold block text-sm">Butuh Respon Cepat?</span>
+                <p class="leading-relaxed">Tim dukungan kami siap melayani pertanyaan seputar spesifikasi teknis dan ketersediaan stok perangkat kerja Anda.</p>
+            </div>
+        </div>
+
+        <!-- Formulir Pesan Kontak (PW-4, PW-6) -->
+        <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+            <form id="form-kontak" class="space-y-4" novalidate>
+                <div>
+                    <label for="kontak-nama" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Anda *</label>
+                    <input type="text" id="kontak-nama" placeholder="Masukkan nama Anda" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white" required>
+                </div>
+
+                <div>
+                    <label for="kontak-email" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Alamat Email *</label>
+                    <input type="email" id="kontak-email" placeholder="nama@email.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white" required>
+                </div>
+
+                <div>
+                    <label for="kontak-subjek" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Subjek Pertanyaan *</label>
+                    <input type="text" id="kontak-subjek" placeholder="Contoh: Pertanyaan Garansi Mouse Wireless" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white" required>
+                </div>
+
+                <div>
+                    <label for="kontak-pesan" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Pesan Anda *</label>
+                    <textarea id="kontak-pesan" rows="4" placeholder="Tuliskan pertanyaan Anda dengan jelas..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition bg-slate-50/50 focus:bg-white" required></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="btn-kirim-kontak" class="w-full py-3.5 rounded-xl bg-[#A6B4FC] text-[#0F172A] font-bold text-sm hover:bg-[#818CF8] hover-lift transition shadow-sm text-center">
+                        Kirim Pesan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-slate-50 border-t border-slate-200 mt-auto py-8 text-center text-xs text-slate-500">
+    &copy; 2026 Digimart. Sistem Informasi Penjualan Online.
+</footer>
+
+<!-- Skrip Interaktif Formulir Kontak (PW-6, PW-7, PW-8, PW-9) -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const inputNama = document.getElementById('kontak-nama');
+    const inputEmail = document.getElementById('kontak-email');
+    const inputSubjek = document.getElementById('kontak-subjek');
+    const inputPesan = document.getElementById('kontak-pesan');
+    const form = document.getElementById('form-kontak');
+
+    inputNama.addEventListener('input', () => validasiInput(inputNama, ['wajib']));
+    inputEmail.addEventListener('input', () => validasiInput(inputEmail, ['wajib', 'email']));
+    inputSubjek.addEventListener('input', () => validasiInput(inputSubjek, ['wajib']));
+    inputPesan.addEventListener('input', () => validasiInput(inputPesan, ['wajib']));
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const v1 = validasiInput(inputNama, ['wajib']);
+        const v2 = validasiInput(inputEmail, ['wajib', 'email']);
+        const v3 = validasiInput(inputSubjek, ['wajib']);
+        const v4 = validasiInput(inputPesan, ['wajib']);
+
+        if (!v1 || !v2 || !v3 || !v4) {
+            tampilkanToast('Mohon lengkapi seluruh field dengan format yang benar.', 'galat');
+            return;
+        }
+
+        bukaDialogKonfirmasi({
+            judul: 'Kirim Pesan Layanan?',
+            pesan: 'Apakah pertanyaan Anda sudah lengkap dan siap dikirim ke tim customer support Digimart?',
+            tipe: 'primer',
+            teksKonfirmasi: 'Kirim Sekarang',
+            onKonfirmasi: () => {
+                form.reset();
+                tampilkanToast('Pesan Anda berhasil dikirim! Tim Digimart akan segera merespons via email.', 'sukses');
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
+
